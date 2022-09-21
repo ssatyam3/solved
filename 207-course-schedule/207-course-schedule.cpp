@@ -1,44 +1,40 @@
 class Solution {
 public:
-    
-    bool dfs(int node, unordered_map<int,vector<int>> &adj, vector<int> &vis, vector<int> &dfsVis){
-        vis[node] = 1;
-        dfsVis[node] = 1;
-        
-        for(auto it : adj[node]){
-            if(vis[it]==0){
-                if(dfs(it,adj,vis,dfsVis)){
-                    return true;
-                }
-            } else if(dfsVis[it]){
-                return true;
-            }
-        }
-        dfsVis[node]=0;
-        return false;
-    }
     bool canFinish(int n, vector<vector<int>>& pre) {
-        if(pre.size()<=1){
-            return true;
-        }
         unordered_map<int,vector<int>> adj;
-        int m = pre.size();
-        for(int i=0 ; i<m ; i++){
+        
+        for(int i=0 ; i<pre.size() ; i++){
             int u = pre[i][0];
             int v = pre[i][1];
             adj[u].push_back(v);
         }
         
-        vector<int> vis(n,0);
-        vector<int> dfsVis(n,0);
+        queue<int> q;
+        vector<int> indegree(n,0);
         
         for(int i=0 ; i<n ; i++){
-            if(!vis[i]){
-                if(dfs(i , adj, vis, dfsVis)){
-                    return false;
+            for(auto it: adj[i]){
+                indegree[it]++;
+            }
+        }
+        
+        for(int i=0 ; i<n ;i++){
+            if(indegree[i]==0)
+                q.push(i);
+        }
+        
+        int cnt=0;
+        while(!q.empty()){
+            int node = q.front();
+            q.pop();
+            cnt++;
+            for(auto it : adj[node]){
+                indegree[it]--;
+                if(indegree[it]==0){
+                    q.push(it);
                 }
             }
         }
-        return true;
+        return cnt==n;
     }
 };
