@@ -13,7 +13,8 @@ public:
                 if(abs(target - sum) < min_dif){
                     min_dif = abs(target-sum);
                     ans = sum;
-                } else if(sum > target){
+                } 
+                if(sum > target){
                     hi--;
                 } else 
                     lo++;
