@@ -1,21 +1,20 @@
 class Solution {
 public:
     
-    bool biPartite(int s , vector<vector<int>> &adj , vector<int> &color){
-        color[s] = 1;
-        queue<int> q;
-        q.push(s);
+    bool biPartite(int node, vector<vector<int>>& adj, vector<int> &color){
+        if(color[node] == -1)
+            color[node] = 0;
         
-        while(!q.empty()){
-            int node = q.front();
-            q.pop();
-            for(auto it: adj[node]){
-                if(color[it] == -1){
-                    color[it] = 1-color[node];
-                    q.push(it);
-                } else if(color[it] == color[node]){
+        for(auto it : adj[node]){
+            if(color[it] == -1){
+                color[it] = 1 - color[node];
+                if(!biPartite(it, adj, color)){
                     return false;
                 }
+                
+            }
+            else if(color[it] == color[node]){
+                return false;
             }
         }
         return true;
