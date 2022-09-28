@@ -21,7 +21,7 @@ public:
                     res.push_back(a);
                 }
             } else {
-                low[node] = min(low[node], low[it]);
+                low[node] = min(low[node], tin[it]);
             }
         }
     }
