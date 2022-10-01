@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int dp[101];
+    int dp[102];
     int decode(string &s, int idx, int n)
     {
        if(idx < n && s[idx] == '0') return 0;
