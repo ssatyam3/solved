@@ -1,47 +1,27 @@
 class Solution {
 public:
-    unordered_map<string,int> mp;
-    
-    int dfs(string str, int start, int end){
-        if(start > end){
-            return 1;
-        }
-        if(str[start]=='0'){
-            return 0;
-        }
-        if(start==end){
-            if(str[start] == '0'){
-                return 0;
-            }
-            int x = str[start] - '0';
-            if(x>=1 && x<=26){
-                return 1;
-            }
-        }
-        int ans=0;
-        int x = str[start] - '0';
-        if(x>=1 && x<=26){
-            string tmp = str.substr(start+1,end-start);
-            if(mp.find(tmp)==mp.end()){
-                mp[tmp] = dfs(str, start+1, end);
-            }
-            ans += mp[tmp];
-        }
+    int dp[102];
+    int decode(string &s, int idx, int n)
+    {
+       if(idx < n && s[idx] == '0') return 0;
+        if(idx >= n) return 1;
+        if(dp[idx] != -1) return dp[idx];
+        int ways=0;
         
-        int z = stoi(str.substr(start,2));
-        if(z>=10 && z<=26){
-            string tmp = str.substr(start+2,end-start-1);
-            if(mp.find(tmp) == mp.end()){
-                mp[tmp] = dfs(str, start+2, end);
-            }
-            ans += mp[tmp];
-        }
-        return ans;
+        //pick single
+        if(s[idx] != '0') ways = decode(s,idx+1,n);
+        //pick couple
+        if(idx+1<n && ((s[idx] == '1' && s[idx+1]<='9') || 
+                       (s[idx] == '2' && s[idx+1] < '7')))
+            ways += decode(s,idx+2, n);
+        return dp[idx] = ways;
     }
-        
+    
     int numDecodings(string s) {
-        if(s[0] == '0')
-            return 0;
-        return dfs(s, 0, s.length()-1);
+        if(s[0] == '0') return 0;
+        
+        memset(dp, -1, sizeof(dp));
+        int n = s.size();
+        return decode(s,0,n);
     }
 };
