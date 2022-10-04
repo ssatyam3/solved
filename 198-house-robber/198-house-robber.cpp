@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // space optimized tabulation
     int rob(vector<int>& arr) {
         int n = arr.size();
         
