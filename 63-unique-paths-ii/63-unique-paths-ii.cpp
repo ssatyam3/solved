@@ -16,10 +16,10 @@ public:
                     dp[i][j] = 1;
                 else {
                         int l=0,r=0;
-                        if(i>0 && grid[i-1][j] == 0) {
+                        if(i>0 && grid[i][j] == 0) {
                             l = dp[i-1][j];
                         }
-                        if(j>0 && grid[i][j-1]==0) 
+                        if(j>0 && grid[i][j]==0) 
                             r = dp[i][j-1];
                         dp[i][j] = l+r;
                     } 
