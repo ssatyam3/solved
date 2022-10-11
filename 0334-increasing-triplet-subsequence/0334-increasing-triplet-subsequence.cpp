@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // Chaining technnique
     bool increasingTriplet(vector<int>& arr) {
         
         int n = arr.size();
