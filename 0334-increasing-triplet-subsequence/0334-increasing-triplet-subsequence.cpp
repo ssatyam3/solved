@@ -1,25 +1,32 @@
 class Solution {
 public:
     // Chaining technnique
-    bool increasingTriplet(vector<int>& arr) {
+ bool increasingTriplet(vector<int>& nums) {
+
+        int n = nums.size();
         
-        int n = arr.size();
-        if(n<3){
-            return 0;
-        }
+        // first will keep track of first element of triplet
         
-        vector<int> rmax(n+1);
-        rmax[n] = INT_MIN;
-        for(int i=n-1 ; i>=0 ; i--){
-            rmax[i] =  max(rmax[i+1],arr[i]);
-        }
+        int first = INT_MAX;
         
-        int lmin = arr[0];
-        for(int i=1 ; i<n-1 ; i++){
-            if(arr[i] > lmin && arr[i] < rmax[i+1]){
-                return true;
+        // second will keep track of second element of triple
+        
+        int second = INT_MAX;
+        
+        // second > first
+        
+        for(int i = 0; i < n; i++)
+        {
+            if(nums[i] <= first)
+            {
+                first = nums[i];
             }
-            lmin = min(lmin, arr[i]);
+            else if(nums[i] <= second)
+            {
+                second = nums[i];
+            }
+            else
+                return true;
         }
         
         return false;
