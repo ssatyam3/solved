@@ -20,21 +20,22 @@ public:
         return ans;
     }
     ListNode* deleteMiddle(ListNode* head) {
-        int len = length(head);
-        if(len == 1){
+        
+        if(head->next == NULL){
             return NULL;
         }
-        if(len == 2){
+        if(head->next->next== NULL){
             head->next = NULL;
             return head;
         }
+        int len = length(head);
         
-        int pos = len/2;
+        len = len/2;
         
         ListNode *prev = NULL;
         ListNode *curr = head;
         
-        for(int i=1 ; i<=pos ; i++){
+        for(int i=1 ; i<=len ; i++){
             prev = curr;
             curr = curr->next;
         }
