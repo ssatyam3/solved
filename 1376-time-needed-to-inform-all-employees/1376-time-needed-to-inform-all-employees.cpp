@@ -1,7 +1,7 @@
 class Solution {
 public:
     
-    int dfs(int node, int prevTime, vector<int> &vis,unordered_map<int,vector<int>> &adj, vector<int>& informTime){
+    int dfs(int node, int prevTime, vector<int> &vis, vector<vector<int>> &adj, vector<int>& informTime){
         vis[node] = 1;
         int levelTime = informTime[node];
         int mx=0;
@@ -16,7 +16,7 @@ public:
     
     int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
         
-        unordered_map<int,vector<int>> adj;
+        vector<vector<int>> adj(n);
         vector<int> vis(n,0);
         for(int v=0 ; v<manager.size() ; v++){
             if(manager[v]==-1){
